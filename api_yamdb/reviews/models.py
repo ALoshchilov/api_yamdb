@@ -25,8 +25,8 @@ USER_ROLES = (
 #     role = models.CharField(max_length=50, choices=USER_ROLES)
 
 class Category(models.Model):
-    name = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True)
+    name = models.CharField(max_length=256)
+    slug = models.SlugField(unique=True, max_length=50)
     description = models.TextField()
 
     class Meta:
@@ -47,7 +47,7 @@ class Title(models.Model):
         Category, on_delete=models.SET_NULL,
         related_name="titles", blank=True, null=True
     )
-    year = models.IntegerField(
+    year = models.PositiveSmallIntegerField(
         'Год публикации', db_index=True
     )
 
@@ -86,8 +86,8 @@ class Review(models.Model):
 
 
 class Genre(models.Model):
-    name = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True)
+    name = models.CharField(max_length=256)
+    slug = models.SlugField(unique=True, max_length=50)
     review = models.ForeignKey(
         Review, on_delete=models.CASCADE, related_name='genre'
     )
